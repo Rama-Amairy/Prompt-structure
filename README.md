@@ -1,5 +1,5 @@
 # Prompt-structure
-# 🚀 What Is This About?
+## 🚀 What Is This About?
 This is a professional way to organize, manage, and use prompt templates for LLM-based apps (like chatbots or summarizers). It supports:
 
 -Reusability
@@ -13,23 +13,49 @@ This is a professional way to organize, manage, and use prompt templates for LLM
 
 
 ## 1. File Organization Structure
+When you're building an LLM application (e.g., chatbot, summarizer, assistant), you'll have many prompt templates for different purposes:
+
+Some for chatting
+
+Some for technical replies
+
+Some for summarizing
+
+Some common pieces reused in many prompts
+
+To avoid confusion and improve reusability, versioning, and testing, you organize them into folders and files.
 
 ```
 prompts/
-├── version.txt          # Track prompt versions
-├── chat/               # Domain-specific prompts
-│   ├── base.yaml       # Base templates
-│   ├── customer_support.yaml
-│   └── technical.yaml
-├── summarization/
-│   ├── short.yaml
-│   └── detailed.yaml
-└── shared/             # Reusable components
-    ├── personas.yaml
-    └── formats.yaml
+├── version.txt                # 1. Version number of the prompts
+├── chat/                      # 2. Chat-related prompts
+│   ├── base.yaml              # Base chat prompt everyone inherits from
+│   ├── customer_support.yaml  # A prompt tailored for customer support
+│   └── technical.yaml         # A prompt for technical Q&A
+├── summarization/             # 3. Prompts for summarization tasks
+│   ├── short.yaml             # Short summaries
+│   └── detailed.yaml          # Long summaries
+└── shared/                    # 4. Reusable prompt parts (common components like header and footer)
+    ├── personas.yaml          # Shared personas (e.g., assistant, expert)
+    └── formats.yaml           # Shared formats/templates
+
 ```
 
 ## 2. YAML Template Deep Dive
+This section shows how to write a single prompt template using YAML + Jinja2 templating language.
+
+It's like a blueprint for generating prompts dynamically, using variables, conditions, and reusable parts.
+
+This YAML template:
+
+Uses Jinja2 to insert variables and conditions
+
+Pulls in reusable parts (like personas)
+
+Validates and tests the prompt
+
+Keeps everything modular, reusable, and clean
+
 
 ### Complete Template Example (`prompts/chat/main.yaml`)
 ```yaml
@@ -98,6 +124,9 @@ validation:
 ```
 
 ## 3. Advanced Templating with Jinja2
+
+**Macros in Jinja2**
+A macro in Jinja2 is essentially a reusable block of template code, similar to a function in traditional programming languages. You can define a macro in one template (like shared/personas.yaml) and call it wherever you need it, making your templates cleaner and more modular.
 
 ### Macros (in `shared/personas.yaml`)
 ```yaml
