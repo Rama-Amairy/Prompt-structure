@@ -1,5 +1,5 @@
 # Prompt-structure
-## 🚀 What Is This About?
+## What Is This About?
 This is a professional way to organize, manage, and use prompt templates for LLM-based apps (like chatbots or summarizers). It supports:
 
 -Reusability
