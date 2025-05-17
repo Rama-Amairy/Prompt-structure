@@ -263,6 +263,8 @@ env = Environment(
 ```
 
 2. **Pre-compiled Prompts**:
+To pre-load and compile all your Jinja2 prompt templates during deployment or app startup.
+This makes your app faster because templates don’t have to be reloaded and recompiled every time you use them.
 ```python
 # During build/deployment:
 compiled = {}
@@ -271,11 +273,20 @@ for template_file in Path("prompts").glob("**/*.yaml"):
     compiled[template_file.stem] = template
 ```
 
+```python
+#saving the compiled template into a dictionary
+compiled = {
+    "main": <Template object>,
+    "variant_emoji": <Template object>
+}
+```
+
 ## 8. Security Considerations
 
 1. **Input Sanitization**:
 ```python
 from markupsafe import escape
+#escape() will neutralize special characters, like: {, }, <, >, " (used in Jinja2 or HTML)
 
 context = {
     "user_input": escape(user_input)  # Prevent prompt injection
@@ -283,12 +294,13 @@ context = {
 ```
 
 2. **Audit Trail**:
+You want to track what templates were used, what context was passed, and what output was generated — for debugging, security auditing, or user support.
 ```python
 def log_prompt_generation(template, context, output):
     audit_log = {
         "timestamp": datetime.utcnow(),
         "template": template,
-        "context_hash": hash(frozenset(context.items())),
+        "context_hash": hash(frozenset(context.items())), #A hashed version of the context (for security, instead of storing it raw)
         "output_sample": output[:200]
     }
     # Store to database or file
