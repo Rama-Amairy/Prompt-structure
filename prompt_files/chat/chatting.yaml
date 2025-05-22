@@ -1,0 +1,15 @@
+system_prompt: |
+  {{ assistant }}
+
+  Respond in a {{ tone }} tone.
+  Language: {{ language }}
+
+user_prompt: |
+  User: {{ user_input }}
+
+variables:
+  required:
+    - user_input
+  optional:
+    - tone: friendly
+    - language: en

@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from logs import log_info
+from typing import Union
 
 
 class BaseModel(ABC):
     """Abstract base class for all AI models"""
 
-    def __init__(self, model_name: str, api_key: str):
+    def __init__(self, model_name: str, api_key: Union[str, None]):
         """
         Initialize base model properties
 
@@ -13,9 +14,9 @@ class BaseModel(ABC):
             model_name: Identifier for the AI model
             api_key: Authentication key if required
         """
-        self.model_name = (model_name,)
-        self.api_key = (api_key,)
-        self.is_load = (False,)
+        self.model_name = model_name
+        self.api_key = api_key
+        self.is_load = False
         log_info(f"init base model class for: {self.model_name}")
 
     @abstractmethod

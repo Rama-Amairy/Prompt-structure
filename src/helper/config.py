@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0"
     CHATBOT_NAME: str = "Nothing"
 
+    # model name
+    MODEL_NAME: str = "qwen/qwen3-0.6b-04-28:free"
+    OPENROUTER_API_KEY: str = "None"
+
     class Config:
         env_file = os.path.join(root_dir, ".env")
         # env_file_encoding = "utf-8"
